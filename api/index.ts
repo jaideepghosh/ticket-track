@@ -4,7 +4,7 @@
  * Module dependencies.
  */
 
-var app = require('../app');
+var app = require('./app');
 var debug = require('debug')('api:server');
 var http = require('http');
 var mongoose = require('mongoose');
@@ -38,9 +38,9 @@ var mongo_connection_string = process.env.MONGO_CONNECTION_STRING || '';
 mongoose.connect(mongo_connection_string, {
   useNewUrlParser: true,
   useUnifiedTopology: true
-}).then(_ => {
+}).then((_: any) => {
   console.log("Connected to mongodb.");
-}).catch(_ => {
+}).catch((_: any) => {
   console.error("Mongoose connection error.");
   process.exit(1);
 });
@@ -50,7 +50,7 @@ mongoose.connect(mongo_connection_string, {
  * Normalize a port into a number, string, or false.
  */
 
-function normalizePort(val) {
+function normalizePort(val: string) {
   var port = parseInt(val, 10);
 
   if (isNaN(port)) {
@@ -70,7 +70,7 @@ function normalizePort(val) {
  * Event listener for HTTP server "error" event.
  */
 
-function onError(error) {
+function onError(error: any) {
   if (error.syscall !== 'listen') {
     throw error;
   }
