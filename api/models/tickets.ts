@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 const { STATUS } = require("../constants/common");
 
 const TiketSchema = new mongoose.Schema({
