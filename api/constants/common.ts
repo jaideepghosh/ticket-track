@@ -5,4 +5,11 @@ export const STATUS = {
     CLOSED: "Closed"
 };
 
-export default { STATUS };
+export const STATUS_LIST = [
+    STATUS.OPEN,
+    STATUS.IN_PROGRESS,
+    STATUS.CODE_REVIEW,
+    STATUS.CLOSED,
+];
+
+export default { STATUS, STATUS_LIST };
