@@ -29,4 +29,4 @@ TiketSchema.index(
 );
 
 const Tickets = mongoose.model("tickets", TiketSchema);
-module.exports = Tickets;
+export default Tickets;
