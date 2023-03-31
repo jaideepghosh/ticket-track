@@ -1,0 +1,3 @@
+- Generated the express app without view using `npx express-generator --no-view` command.
+- Create a mongodb database in local or on https://cloud.mongodb.com/
+- Define the mongo connection url in an environment varible called `MONGO_CONNECTION_STRING`.
