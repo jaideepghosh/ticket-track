@@ -20,9 +20,7 @@ router.get('/', async function(req: Request, res: Response, next: NextFunction) 
 router.post('/', async function(req: Request, res: Response, next: NextFunction) {
   try {
     const payload = req.body;
-    const result = await Tickets.create(payload);
-    console.log("result:: ", result);
-    
+    const result = await Tickets.create(payload);    
     return res.json(result);
   } catch (error) {
     console.log("error:: ", error);
