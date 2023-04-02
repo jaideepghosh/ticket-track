@@ -5,4 +5,14 @@ export const StatusOptions = [
     "Closed"
 ];
 
+export interface TicketType {
+    "_id": string,
+    "status": string,
+    "description": string,
+    "title": string,
+    "createdAt": Date,
+    "updatedAt": Date,
+    "__v": number
+}
+
 export default { StatusOptions };

@@ -29,7 +29,7 @@ const Tickets = () => {
                             <div className="flex max-h-[600px] w-full flex-col overflow-y-scroll">
                             {
                                 tickets.map((ticket: any) => 
-                                    <Link to={`/tickets/${ticket.transactionId}`} className="group flex items-center gap-x-5 rounded-md px-2.5 py-2 transition-all duration-75 hover:bg-yellow-100" key={ticket._id}>
+                                    <Link to={`/tickets/${ticket._id}`} className="group flex items-center gap-x-5 rounded-md px-2.5 py-2 transition-all duration-75 hover:bg-yellow-100" key={ticket._id}>
                                         <div className="flex h-12 w-12 items-center rounded-lg bg-gray-200 text-black group-hover:bg-yellow-200">
                                             <span className="tag w-full text-center text-2xl font-medium text-gray-700 group-hover:text-green-900">
                                                 {
