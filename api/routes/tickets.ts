@@ -44,4 +44,17 @@ router.patch('/:id', PayloadValidator(TicketPatchSchema), StatusValidator(), asy
   }
 });
 
+/* GET ticket by ID. */
+router.get('/:id', async function(req: Request, res: Response, next: NextFunction) {
+  try {
+    const { id } = req.params;
+    const result = await Tickets.findById(id);
+
+    if(!result) return res.status(404).send({message: MESSAGES.INVALID_REQUEST});
+    
+    return res.json(result);
+  } catch (error) {
+    return res.status(500).send({message: MESSAGES.SOMETHING_WENT_WRONG});
+  }
+});
 module.exports = router;
