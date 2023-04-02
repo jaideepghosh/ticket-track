@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import { CSSTransition } from 'react-transition-group';
 
 const Dropdown = () => {
-    const [visible, setVisibility] = useState(true);
+    const [visible, setVisibility] = useState(false);
     const nodeRef = useRef(null);
     return (
       <div className="relative inline-block text-left">
