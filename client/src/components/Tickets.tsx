@@ -17,7 +17,7 @@ const Tickets = () => {
 
     useEffect(() => {
         fetchTickets();
-    }, [tickets]);
+    }, []);
 
     return (
             <div className="rounded-xl border border-gray-200 bg-white py-4 px-2 shadow-md shadow-gray-100 mt-2">

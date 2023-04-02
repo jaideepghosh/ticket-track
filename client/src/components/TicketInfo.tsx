@@ -3,12 +3,16 @@ import { useParams } from 'react-router-dom';
 import HttpService from "../utils/http";
 import Dropdown from "./Dropdown";
 import { StatusOptions, TicketType } from "../constants/common";
+import Alert, { AlertTypes } from "../utils/alerts";
+import axios, { AxiosError } from "axios";
 
 const TicketInfo = () => {
+    let { ticketId } = useParams();
     const [options, setOptions] = useState(StatusOptions);
     const [ticket, setTicket] = useState<TicketType | null>(null);
     const [selectedOption, setSelectedOption] = useState(ticket?.status || "Open");
-    let { ticketId } = useParams();
+    const [alertMessage, setAlertMessage] = useState<string|null>(null);
+    const [alertType, setAlertType] = useState(AlertTypes.Info);
 
     const fetchTicket = async () => {
         try {
@@ -35,17 +39,48 @@ const TicketInfo = () => {
 
     useEffect(() => {
         calculateOptions();
-    }, [ticket]);
+    }, [ticket?.status]);
 
-    const handleDropdownValueChange = (event: any, option: string) => {
+    const handleDropdownValueChange = async (event: any, option: string) => {
         event.preventDefault();
-        if (selectedOption===option) return;
-        setSelectedOption(event.target.innerText);
-        return event.target.innerText;
+
+        if (selectedOption===option) return selectedOption;
+
+        try {
+            const payload = {
+                status: event.target.innerText
+            }
+            const response: any = await HttpService.patch(`tickets/${ticketId}`, payload);
+            setTicket(response.data);
+            setSelectedOption(event.target.innerText);
+            setAlertMessage("Status has been updated.");
+            setAlertType(AlertTypes.Success);
+            calculateOptions();
+            return event.target.innerText;
+        } catch (error: unknown | AxiosError) {
+            setAlertType(AlertTypes.Danger);
+            
+            if (axios.isAxiosError(error) && error?.response?.data && error?.response.data.description)  {
+                console.log("error?.response.data.description:: ", error?.response?.data?.description);
+                setAlertMessage(error?.response.data.description);
+                return null;
+            }
+            setAlertMessage("Error");
+            return null;
+        }
+    }
+
+    const onClose = () => {
+        setAlertMessage(null);
     }
 
     return (
             <div className="rounded-xl border border-gray-200 bg-white py-4 px-2 shadow-md shadow-gray-100 mt-2">
+                {
+                    alertMessage ? 
+                    <Alert message={alertMessage} type={alertType} onClose={onClose}/>:
+                    "" 
+                }
                 <div className="grid grid-cols-3 gap-4">
                     <div className="px-2 mt-1 col-span-2">
                         Ticket Id: 

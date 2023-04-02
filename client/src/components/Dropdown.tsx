@@ -4,7 +4,7 @@ import { CSSTransition } from 'react-transition-group';
 interface DropdownProps {
   options: Array<string>,
   selectedOption: string | undefined,
-  onChange: (event: any, option: string) => string
+  onChange: (event: any, option: string) => any
 }
 
 const Dropdown = (props: DropdownProps) => {
@@ -84,10 +84,15 @@ const Dropdown = (props: DropdownProps) => {
                             } px-4 py-2 text-sm hover:bg-gray-100 hover:text-gray-900`
                         }
                         onClick={
-                          (event: any) => {
-                            setLoader(true);
-                            setSelectedOption(props.onChange(event, option));
-                            setLoader(false);
+                          async (event: any) => {
+                            try {
+                              setLoader(true);
+                              const result = await props.onChange(event, option);
+                              setSelectedOption(result);
+                              setLoader(false);
+                            } catch (error) {
+                              console.log("error in this:: ", error);                              
+                            }
                           }
                         }
                         role="menuitem"
