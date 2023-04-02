@@ -1,6 +1,18 @@
+import { useState } from "react";
 import Dropdown from "./Dropdown";
+import { StatusOptions } from "../constants/common";
 
 const TicketInfo = () => {
+    const [options, setOptions] = useState(StatusOptions);
+    const [selectedOption, setSelectedOption] = useState("Closed");
+
+    const handleDropdownValueChange = (event: any, option: string) => {
+        event.preventDefault();
+        if (selectedOption===option) return;
+        setSelectedOption(event.target.innerText);
+        return event.target.innerText;
+    }
+
     return (
             <div className="rounded-xl border border-gray-200 bg-white py-4 px-2 shadow-md shadow-gray-100 mt-2">
                 <div className="grid grid-cols-3 gap-4">
@@ -16,7 +28,13 @@ const TicketInfo = () => {
                         </div>
                     </div>
                     <div>
-                        <Dropdown/>
+                        <Dropdown
+                            options={options}
+                            selectedOption={selectedOption}
+                            onChange={
+                                handleDropdownValueChange
+                            }
+                        />
                     </div>
                 </div>
                 <div className="mt-4">
