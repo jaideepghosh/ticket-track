@@ -4,7 +4,7 @@ class HttpService {
     private service: AxiosInstance;
     constructor() {
         const service = axios.create({
-            baseURL: process.env.API_HOST || "",
+            baseURL: process.env.API_HOST || "https://ticket-track.onrender.com",
             headers: {
                 "Content-Type": "application/json"
             },
